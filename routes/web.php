@@ -21,4 +21,8 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     Route::post('/users/{id}/toggle-status', [UserController::class, 'toggleStatus']);
 
     Route::get('/clients', [ClientController::class, 'index']);
+    Route::post('/clients', [ClientController::class, 'store']);
+    Route::post('/clients/import', [ClientController::class, 'import']);
+    Route::post('/clients/{id}', [ClientController::class, 'update']);
+    Route::post('/clients/{id}/toggle-status', [ClientController::class, 'toggleStatus']);
 });
