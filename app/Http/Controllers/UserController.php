@@ -7,9 +7,18 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $req)
     {
-        $users = User::all();
+        $match = User::orderBy('created_at', 'desc');
+
+        $q = $req->query('q');
+
+        if ($q) $match->where('firstNames', 'like', "%$q%")
+            ->orWhere('lastNames', 'like', "%$q%")
+            ->orWhere('email', 'like', "%$q%");
+
+        $users = $match->paginate();
+
         return view('users.page', compact('users'));
     }
 
@@ -18,6 +27,8 @@ class UserController extends Controller
         $req->validate([
             'firstNames' => 'required|string',
             'lastNames' => 'nullable|string',
+            'phone' => 'nullable|string',
+            'address' => 'nullable|string',
             'role' => 'required|string',
             'businessName' => 'required|string',
             'email' => 'required|email',
@@ -33,6 +44,8 @@ class UserController extends Controller
         $user = new User();
         $user->firstNames = $req->firstNames;
         $user->lastNames = $req->lastNames;
+        $user->phone = $req->phone;
+        $user->address = $req->address;
         $user->role = $req->role;
         $user->businessName = $req->businessName;
         $user->email = $req->email;
@@ -50,6 +63,8 @@ class UserController extends Controller
         $req->validate([
             'firstNames' => 'required|string',
             'lastNames' => 'nullable|string',
+            'phone' => 'nullable|string',
+            'address' => 'nullable|string',
             'role' => 'required|string',
             'businessName' => 'required|string',
             'email' => 'required|email',
@@ -63,6 +78,8 @@ class UserController extends Controller
 
         $user->firstNames = $req->firstNames;
         $user->lastNames = $req->lastNames;
+        $user->phone = $req->phone;
+        $user->address = $req->address;
         $user->role = $req->role;
         $user->businessName = $req->businessName;
         $user->email = $req->email;
