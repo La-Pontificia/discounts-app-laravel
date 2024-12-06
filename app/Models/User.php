@@ -16,10 +16,13 @@ class User extends Authenticatable
     'role',
     'businessName',
     'email',
+    'phone',
+    'address',
     'status',
     'password',
     'lastSession',
   ];
+  protected $perPage = 20;
 
   protected $hidden = [
     'password',

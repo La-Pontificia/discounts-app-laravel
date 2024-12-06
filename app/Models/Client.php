@@ -11,23 +11,29 @@ class Client extends Model
   use HasFactory, Notifiable;
 
   protected $fillable = [
-    'names',
-    'first_sursname',
-    'second_sursname',
-    'business_unit',
+    'firstNames',
+    'lastNames',
+    'businessUnit',
     'dni',
     'type',
     'status',
-    'user_id',
+    'userId',
   ];
+
+  protected $perPage = 20;
 
   public function user()
   {
-    return $this->hasOne(User::class, 'id', 'user_id');
+    return $this->hasOne(User::class, 'id', 'userId');
   }
 
   public function histories()
   {
-    return $this->HasMany(History::class, 'id', 'client_id');
+    return $this->HasMany(History::class, 'id', 'clientId');
+  }
+
+  public function displayName()
+  {
+    return $this->firstNames . ' ' . $this->lastNames;
   }
 }
