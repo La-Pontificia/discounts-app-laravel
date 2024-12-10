@@ -71,7 +71,7 @@
                             <th>N°</th>
                             <th>Nombres</th>
                             <th>Apellidos</th>
-                            <th>DNI</th>
+                            <th>Documento de Identidad</th>
                             <th>Unidad de Negocio</th>
                             <th>Tipo</th>
                             <th>Estado</th>
@@ -84,7 +84,7 @@
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $client->firstNames }}</td>
                                 <td>{{ $client->lastNames }}</td>
-                                <td>{{ $client->dni }}</td>
+                                <td>{{ $client->documentId }}</td>
                                 <td>{{ $client->businessUnit }}</td>
                                 <td>{{ $client->type }}</td>
                                 <td>

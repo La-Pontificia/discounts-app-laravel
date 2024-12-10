@@ -4,7 +4,7 @@
 
     $firstNames = isset($client) ? $client->firstNames : '';
     $lastNames = isset($client) ? $client->lastNames : '';
-    $dni = isset($client) ? $client->dni : '';
+    $documentId = isset($client) ? $client->documentId : '';
     $businessUnit = isset($client) ? $client->businessUnit : '';
     $type = isset($client) ? $client->type : '';
     $status = isset($client) ? $client->status : true;
@@ -14,7 +14,7 @@
 <div class="grid grid-cols-2 gap-4">
     <label class="label">
         <span>Documento de Identidad</span>
-        <input pattern="[0-9]{8}" value="{{ $dni }}" type="text" name="dni" required>
+        <input pattern="[0-9]{8}" value="{{ $documentId }}" type="text" name="documentId" required>
     </label>
 </div>
 

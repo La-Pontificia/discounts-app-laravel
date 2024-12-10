@@ -30,7 +30,7 @@
         ],
         [
             'href' => '/discounts',
-            'active' => request()->is('reports*'),
+            'active' => request()->is('discounts*'),
             'icon' => 'fluentui-shopping-bag-percent-20-o',
             'active-icon' => 'fluentui-shopping-bag-percent-20',
             'text' => 'Descuentos',
