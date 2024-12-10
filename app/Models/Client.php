@@ -14,7 +14,7 @@ class Client extends Model
     'firstNames',
     'lastNames',
     'businessUnit',
-    'dni',
+    'documentId',
     'type',
     'status',
     'userId',
