@@ -32,18 +32,18 @@ class ClientController extends Controller
             'firstNames' => 'required|string',
             'lastNames' => 'required|string',
             'businessUnit' => 'required|string',
-            'dni' => 'required|numeric', // <-- |min:8|max:8 not found
+            'documentId' => 'required|numeric', // <-- |min:8|max:8 not found
             'type' => 'required|string',
         ]);
 
-        $alreadyDni = Client::where('dni', $req->dni)->first();
+        $alreadyDni = Client::where('documentId', $req->dni)->first();
         if ($alreadyDni) return response()->json('El DNI ya se encuentra registrado', 400);
 
         $client = new Client();
         $client->firstNames = $req->firstNames;
         $client->lastNames = $req->lastNames;
         $client->businessUnit = $req->businessUnit;
-        $client->dni = $req->dni;
+        $client->documentId = $req->documentId;
         $client->type = $req->type;
         $client->status = $req->status ? true : false;
         $client->userId = Auth::id();
@@ -58,7 +58,7 @@ class ClientController extends Controller
             'firstNames' => 'required|string',
             'lastNames' => 'required|string',
             'businessUnit' => 'required|string',
-            'dni' => 'required|numeric',
+            'documentId' => 'required|numeric',
             'type' => 'required|string',
         ]);
 
@@ -66,7 +66,7 @@ class ClientController extends Controller
         $client->firstNames = $req->firstNames;
         $client->lastNames = $req->lastNames;
         $client->businessUnit = $req->businessUnit;
-        $client->dni = $req->dni;
+        $client->documentId = $req->documentId;
         $client->type = $req->type;
         $client->status = $req->status ? true : false;
         $client->save();
@@ -96,5 +96,14 @@ class ClientController extends Controller
             'file' => 'required|file|mimes:xlsx,xls',
         ]);
         return response()->json('Clientes importados correctamente');
+    }
+
+    public function one(Request $req)
+    {
+
+        $slug = $req->query('slug');
+        $user = Client::where('id', $slug)->orWhere('documentId', $slug)->first();
+        if (!$user) return response()->json('Cliente no encontrado', 404);
+        return response()->json($user);
     }
 }
