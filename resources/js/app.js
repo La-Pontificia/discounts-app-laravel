@@ -5,6 +5,7 @@ import "./utils";
 import "./discount";
 import "./reports";
 import "./dashboard";
+import "./ui";
 
 window.alert = (title = "Confirmar", text = "Confirmar", icon = "warning") =>
     Swal.fire({
