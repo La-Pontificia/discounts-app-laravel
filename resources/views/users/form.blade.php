@@ -49,7 +49,7 @@
 
 <label class="label">
     <span>Nombre de negocio</span>
-    <input value="{{ $businessName }}" name="businessName" required>
+    <input value="{{ $businessName }}" name="businessName">
 </label>
 
 <label class="label">
