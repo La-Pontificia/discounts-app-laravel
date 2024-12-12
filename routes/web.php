@@ -38,6 +38,10 @@ Route::middleware([AuthMiddleware::class])->group(function () {
 
 
     Route::post('/histories', [HistoryController::class, 'store']);
+    Route::get('/histories/dates-grouped', [HistoryController::class, 'datesGrouped']);
+    Route::get('/histories/per-business-data', [HistoryController::class, 'perBusinessData']);
+    Route::get('/histories/per-business-time-series', [HistoryController::class, 'getBusinessHistoryTimeSeries']);
+
 
     Route::get('/reports', [ReportController::class, 'index']);
 });
