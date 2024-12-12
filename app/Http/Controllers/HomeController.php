@@ -23,9 +23,15 @@ class HomeController extends Controller
         }
 
         $now = date('Y-m-d');
-        $nowHistories = History::where('userId', Auth::id())
-            ->where('created_at', '>=', $now . ' 00:00:00')
-            ->orderBy('created_at', 'desc')->get();
+
+        $query = History::where('created_at', '>=', $now . ' 00:00:00')
+            ->orderBy('created_at', 'desc');
+
+        if ($authUser->role === 'business') {
+            $query->where('userId', Auth::id());
+        }
+
+        $nowHistories = $query->get();
 
         return view('page', compact('discounts', 'nowHistories'));
     }
