@@ -86,7 +86,7 @@
                                 <td>{{ $client->lastNames }}</td>
                                 <td>{{ $client->documentId }}</td>
                                 <td>{{ $client->businessUnit }}</td>
-                                <td>{{ $client->type }}</td>
+                                <td>{{ $client->displayType() }}</td>
                                 <td>
                                     <button data-action="/clients/{{ $client->id }}/toggle-status"
                                         data-title="{{ $client->status ? 'Deshabilitar' : 'Habilitar' }} cliente {{ $client->displayName() }}"

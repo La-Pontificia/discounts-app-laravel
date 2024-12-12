@@ -1,6 +1,6 @@
 @php
     $businessUnits = ['Escuela Superior la Pontificia', 'Instituto La Pontificia', 'Cybernet', 'Educación Continua'];
-    $clientTypes = ['Docente', 'Administrativo', 'Estudiante', 'PPFF', 'Directivo'];
+    $clientTypes = ['docente', 'alumno', 'directivo', 'ppff'];
 
     $firstNames = isset($client) ? $client->firstNames : '';
     $lastNames = isset($client) ? $client->lastNames : '';
