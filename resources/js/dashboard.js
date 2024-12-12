@@ -2,10 +2,13 @@ import ApexCharts from "apexcharts";
 import axios from "axios";
 document.addEventListener("DOMContentLoaded", async function () {
     const $ = document.querySelector.bind(document);
+    const params = new URLSearchParams(window.location.search);
 
     // history dates
     if ($("#history-dates")) {
-        const res = await axios("/histories/dates-grouped");
+        const res = await axios(
+            "/histories/dates-grouped" + "?" + params.toString()
+        );
 
         const dates = res.data;
 
@@ -80,7 +83,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     if ($("#per-business-data")) {
-        const res = await axios("/histories/per-business-data");
+        const res = await axios(
+            "/histories/per-business-data" + "?" + params.toString()
+        );
 
         const labels = res.data.map((item) => item.businessName);
         const series = res.data.map((item) => item.count);
@@ -120,7 +125,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     if ($("#per-business-timeseries")) {
-        const res = await axios("/histories/per-business-time-series");
+        const res = await axios(
+            "/histories/per-business-time-series" + "?" + params.toString()
+        );
 
         const seriesData = [];
         const categories = [];
@@ -156,8 +163,6 @@ document.addEventListener("DOMContentLoaded", async function () {
                 data: data,
             });
         });
-
-        console.log(seriesData, categories);
 
         var options = {
             series: seriesData,
