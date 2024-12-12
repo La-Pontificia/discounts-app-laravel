@@ -1,49 +1,38 @@
-import ApexCharts from "apexcharts";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 document.addEventListener("DOMContentLoaded", function () {
-    // var options = {
-    //     series: [
-    //         {
-    //             name: "Helados S.A.C",
-    //             data: [31, 40, 28, 51, 42, 109, 100],
-    //         },
-    //         {
-    //             name: "Coffe ☕",
-    //             data: [11, 32, 45, 32, 34, 52, 41],
-    //         },
-    //     ],
-    //     chart: {
-    //         height: 250,
-    //         type: "area",
-    //     },
-    //     dataLabels: {
-    //         enabled: false,
-    //     },
-    //     stroke: {
-    //         curve: "smooth",
-    //     },
-    //     title: {
-    //         text: "Descuentos aplicados desde siempre.",
-    //         align: "left",
-    //     },
-    //     xaxis: {
-    //         type: "datetime",
-    //         categories: [
-    //             "2018-09-19T00:00:00.000Z",
-    //             "2018-09-19T01:30:00.000Z",
-    //             "2018-09-19T02:30:00.000Z",
-    //             "2018-09-19T03:30:00.000Z",
-    //             "2018-09-19T04:30:00.000Z",
-    //             "2018-09-19T05:30:00.000Z",
-    //             "2018-09-19T06:30:00.000Z",
-    //         ],
-    //     },
-    //     tooltip: {
-    //         x: {
-    //             format: "dd/MM/yy HH:mm",
-    //         },
-    //     },
-    // };
-    // var chart = new ApexCharts(document.querySelector("#chart-all"), options);
-    // chart.render();
+    const $ = document.querySelector.bind(document);
+
+    const $exportButton = $("#export-button");
+
+    $exportButton.addEventListener("click", async () => {
+        Swal.fire({
+            title: "¿Estás seguro de exportar los datos?",
+            text: "Verifica los filtros y los rangos de fechas antes de exportar.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Sí, exportar",
+            showLoaderOnConfirm: true,
+            preConfirm: async () => {
+                const params = new URLSearchParams(window.location.search);
+
+                try {
+                    const { data } = await axios.get(
+                        "/histories/export" + "?" + params.toString()
+                    );
+
+                    const { filename } = data;
+
+                    const downloadUrl = `/files/reports/${filename}`;
+                    window.open(downloadUrl, "_blank");
+                } catch (error) {
+                    Swal.showValidationMessage(
+                        `Los datos no pudieron ser exportados. Inténtalo de nuevo.`
+                    );
+                }
+            },
+            allowOutsideClick: () => !Swal.isLoading(),
+        });
+    });
 });

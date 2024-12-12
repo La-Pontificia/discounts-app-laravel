@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const $dinamicForms = $$(".dinamic-form");
     const $dinamicAlerts = $$(".dinamic-alert");
     const $dinamicInputToUrl = $$(".dinamic-input-to-url");
+    const $dinamicSelectToUrl = $$(".dinamic-select-to-url");
+
     const $refreshPage = $$(".refresh-page");
     const $rootLoader = document.getElementById("rootLoader");
 
@@ -117,6 +119,21 @@ document.addEventListener("DOMContentLoaded", function () {
     // Dinamic input to url
     $dinamicInputToUrl?.forEach(($input) => {
         $input.addEventListener("input", function (e) {
+            const value = e.target.value;
+            const name = e.target.name;
+            const params = new URLSearchParams(window.location.search);
+            if (value !== "") params.set(name, value);
+            else params.delete(name);
+
+            const newUrl = `${window.location.pathname}?${params.toString()}`;
+            window.history.replaceState({}, "", newUrl);
+        });
+    });
+
+    // Dinamic select to url
+
+    $dinamicSelectToUrl?.forEach(($select) => {
+        $select.addEventListener("change", function (e) {
             const value = e.target.value;
             const name = e.target.name;
             const params = new URLSearchParams(window.location.search);
