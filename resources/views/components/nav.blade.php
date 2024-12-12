@@ -1,6 +1,6 @@
 <nav class="flex items-center gap-2 border-b p-2 bg-white">
     <div class="flex-grow px-3 flex items-center gap-3">
-        <button>
+        <button id="sidebar-toggle" class="pr-2">
             @svg('fluentui-line-horizontal-3-20', 'w-6 h-6')
         </button>
         <a class="w-fit" href="#">

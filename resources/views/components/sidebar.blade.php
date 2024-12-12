@@ -59,7 +59,8 @@
     ];
 @endphp
 
-<aside class="bg-[#001030] p-3 space-y-1 text-xs min-w-[230px] flex flex-col text-gray-300">
+<aside id="sidebar"
+    class="bg-[#001030] data-[open]:ml-0 ml-[-230px] transition-all p-3 space-y-1 text-xs min-w-[230px] flex flex-col text-gray-300">
     @foreach ($items as $item)
         @if (!$item['visible'])
             @continue
