@@ -45,10 +45,22 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     Route::post('/discounts/{id}/delete', [DiscountController::class, 'destroy']);
 
     Route::post('/histories', [HistoryController::class, 'store']);
+    Route::get('/histories/export', [HistoryController::class, 'export']);
     Route::get('/histories/dates-grouped', [HistoryController::class, 'datesGrouped']);
     Route::get('/histories/per-business-data', [HistoryController::class, 'perBusinessData']);
     Route::get('/histories/per-business-time-series', [HistoryController::class, 'getBusinessHistoryTimeSeries']);
 
-
     Route::get('/reports', [ReportController::class, 'index']);
+
+
+
+    Route::get('files/reports/{filename}', function ($filename) {
+        $path = storage_path('app/files/reports/' . $filename);
+
+        if (file_exists($path)) {
+            return response()->download($path);
+        }
+
+        abort(404);
+    });
 });
