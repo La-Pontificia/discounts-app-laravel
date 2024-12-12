@@ -13,18 +13,12 @@ class DiscountController extends Controller
     {
 
         $authUser = User::find(Auth::id());
+        $businessId = $req->query('businessId');
+        $q = $req->query('q');
 
-        $users = [];
 
-        if ($authUser->role === 'business') {
-            $users = User::where('id', $authUser->id)->get()->where('role', 'business');
-        } else {
-            $users = User::where('role', 'business')->get();
-        }
 
         $match = Discount::orderBy('created_at', 'desc');
-
-        $q = $req->query('q');
 
         if ($q) $match->whereHas('user', function ($query) use ($q) {
             $query->where('businessName', 'like', "%$q%")
@@ -37,9 +31,16 @@ class DiscountController extends Controller
             $match->where('userId', $authUser->id);
         }
 
+        if ($businessId) {
+            $match->where('userId', $businessId);
+        }
+
         $discounts = $match->paginate();
 
-        return view('discounts.page', compact('discounts', 'users'));
+        $businesses = User::where('role', 'business')->get();
+        $users = $authUser->role === 'business' ? $users = User::where('id', $authUser->id)->get() : User::where('role', 'business')->get();
+
+        return view('discounts.page', compact('discounts', 'users', 'businesses'));
     }
 
     public function store(Request $req)

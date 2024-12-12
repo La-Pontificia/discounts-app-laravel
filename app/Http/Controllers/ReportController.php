@@ -14,6 +14,7 @@ class ReportController extends Controller
         $user = User::find(Auth::id());
         $q = $req->query('q');
         $startDate = $req->query('startDate');
+        $businessId = $req->query('businessId');
         $endDate = $req->query('endDate');
         $match = History::orderBy('created_at', 'desc');
 
@@ -37,7 +38,13 @@ class ReportController extends Controller
             $match->where('created_at', '<=', $endDate);
         }
 
+        if ($businessId) {
+            $match->where('userId', $businessId);
+        }
+
+        $businesses = User::where('role', 'business')->get();
+
         $histories = $match->paginate();
-        return view('reports.page', compact('histories'));
+        return view('reports.page', compact('histories', 'businesses'));
     }
 }
