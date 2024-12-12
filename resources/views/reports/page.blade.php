@@ -1,38 +1,31 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Usuarios')
+@section('title', 'Reportes de descuentos aplicados')
 
 @section('dashboard-content')
-    <div class="flex flex-col flex-grow overflow-auto">
+    <div class="flex flex-col space-y-4 flex-grow">
         <nav>
-            <h2 class="text-xl text-center pb-2 uppercase font-semibold tracking-tight">
-                Gestión de usuarios
+            <h2 class="text-xl text-center uppercase font-semibold tracking-tight">
+                Reportes de descuentos aplicados
             </h2>
-            <nav class="flex items-center gap-4">
-                <button type="button" data-modal-target="dialog" data-modal-toggle="dialog"
-                    class="py-1.5 px-3 flex justify-center gap-2 items-center bg-green-800 border border-lime-400 rounded-md text-sm text-white">
-                    @svg('fluentui-add-20', 'w-4 h-4')
-                    <span> Registrar usuario</span>
-                </button>
-                <div id="dialog" tabindex="-1" aria-hidden="true" class="dialog hidden">
-                    <div class="content lg:max-w-lg max-w-full">
-                        <header>
-                            Registrar nuevo usuario
-                        </header>
-                        <form action="/users" method="POST" id="dialog-form" class="dinamic-form body grid gap-4 pb-5">
-                            @include('users.form')
-                        </form>
-                        <footer>
-                            <button data-modal-hide="dialog" type="button">Cancelar</button>
-                            <button form="dialog-form" type="submit">
-                                Guardar</button>
-                        </footer>
-                    </div>
-                </div>
-
-                <input type="search" value="{{ request()->get('q') }}" placeholder="Buscar usuarios" name="q"
+            <nav class="flex items-end gap-4 border-b pb-2 rounded-sm">
+                <input type="search" value="{{ request()->get('q') }}" placeholder="Buscar" name="q"
                     class="dinamic-input-to-url">
 
+                <label class="label">
+                    <span>
+                        Fecha de inicio
+                    </span>
+                    <input type="date" value="{{ request()->get('startDate') }}" name="startDate"
+                        class="dinamic-input-to-url">
+                </label>
+                <label class="label">
+                    <span>
+                        Fecha de fin
+                    </span>
+                    <input type="date" value="{{ request()->get('endDate') }}" name="endDate"
+                        class="dinamic-input-to-url">
+                </label>
                 <button class="primary refresh-page">
                     @svg('fluentui-search-20', 'w-4 h-4')
                     <span>Filtrar</span>
@@ -45,24 +38,50 @@
                     <thead class="border-b">
                         <tr class="[&>th]:font-medium [&>th]:text-nowrap [&>th]:p-2 font-medium">
                             <th>N°</th>
-                            <th>Nombre</th>
-                            <th>Razon Social</th>
-                            <th>Rol</th>
-                            <th>Correo</th>
-                            <th>Teléfono</th>
-                            <th>Dirección</th>
-                            <th>Estado</th>
-                            <th>Ultimo acceso</th>
+                            <th>Cliente</th>
+                            <th>Unidad</th>
+                            <th>Negocio</th>
+                            <th>Descuento</th>
+                            <th>Fecha</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($users as $index => $user)
-                            <tr class="[&>td]:p-2 even:bg-stone-100 [&>td]:text-nowrap [&>td>p]:text-nowrap">
+                        @foreach ($histories as $index => $history)
+                            <tr class="[&>td]:p-2 [&>td]:py-1  even:bg-stone-100 [&>td]:text-nowrap [&>td>p]:text-nowrap">
                                 <td>{{ $index + 1 }}</td>
-                                <td>{{ $user->displayName() }}</td>
-                                <td>{{ $user->businessName }}</td>
                                 <td>
+                                    <div>
+                                        <p>{{ $history->client->displayName() }}</p>
+                                        <p class="text-sm">{{ $history->client->documentId }}</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <p>
+                                        @svg('fluentui-building-20-o', 'w-6 h-6 inline-block')
+                                        {{ $history->client->businessUnit }}
+                                    </p>
+                                </td>
+                                <td>{{ $history->discount->user->businessName }}</td>
+                                <td>
+                                    <span
+                                        class="bg-purple-100 border border-purple-500 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full">
+                                        {{ $history->discount->amount }}%
+                                    </span>
+                                </td>
+                                <td>
+                                    <div>
+                                        <p>
+                                            {{ $history->created_at->format('d/m/Y') }}
+                                        </p>
+                                        <p class="text-sm">
+                                            {{ $history->created_at->diffForHumans() }}
+                                        </p>
+                                        {{-- time ago --}}
+                                    </div>
+                                </td>
+                                <td></td>
+                                {{-- <td>
                                     <span
                                         class="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
                                         @svg('fluentui-person-20', 'w-4 h-4')
@@ -127,13 +146,13 @@
                                         </div>
                                     </div>
 
-                                </td>
+                                </td> --}}
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
                 <footer class="px-5 py-4">
-                    {!! $users->links() !!}
+                    {!! $histories->links() !!}
                 </footer>
             </div>
         </div>

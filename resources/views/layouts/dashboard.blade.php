@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="flex flex-col min-h-svh overflow-auto">
+    <div class="flex flex-col h-svh overflow-auto">
         @include('components.nav')
         <div class="flex flex-grow h-full overflow-auto">
             @include('components.sidebar')
-            <div class="w-full p-4 flex flex-grow flex-col h-full overflow-auto">
-                <div class="flex-grow h-full w-full">
+            <div class="w-full flex flex-grow flex-col h-full overflow-auto">
+                <div class="flex-grow p-5 w-full">
                     @yield('dashboard-content')
                 </div>
                 @include('components.footer')

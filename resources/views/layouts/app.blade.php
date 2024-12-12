@@ -5,9 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'La Pontificia')</title>
+    <title>@yield('title', 'Descuentos - La Pontificia')</title>
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link rel="icon" href="{{ asset('/lp-square.webp') }}" type="image/x-icon">
     @vite(['resources/js/app.js', 'resources/css/app.css'])
 </head>
 
