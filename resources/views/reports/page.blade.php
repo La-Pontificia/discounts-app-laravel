@@ -9,8 +9,8 @@
                 Reportes de descuentos aplicados
             </h2>
             <nav class="flex items-end flex-wrap gap-4 border-b pb-2 rounded-sm">
-                <input type="search" value="{{ request()->get('q') }}" placeholder="Buscar" name="q"
-                    class="dinamic-input-to-url">
+                {{-- <input type="search" value="{{ request()->get('q') }}" placeholder="Buscar" name="q"
+                    class="dinamic-input-to-url"> --}}
 
                 <label class="label">
                     <span>
@@ -26,12 +26,28 @@
                     <input type="date" value="{{ request()->get('endDate') }}" name="endDate"
                         class="dinamic-input-to-url">
                 </label>
+                @if ($authUser->role != 'business')
+                    <label class="label">
+                        <span>
+                            Empresa
+                        </span>
+                        <select name="businessId" class="dinamic-select-to-url">
+                            <option value=""> -- Todas las empresas -- </option>
+                            @foreach ($businesses as $business)
+                                <option value="{{ $business->id }}"
+                                    {{ request()->get('businessId') == $business->id ? 'selected' : '' }}>
+                                    {{ $business->businessName }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </label>
+                @endif
                 <button class="primary refresh-page">
                     @svg('fluentui-search-20', 'w-4 h-4')
                     <span>Filtrar</span>
                 </button>
                 <div class="ml-auto">
-                    <button
+                    <button id="export-button"
                         class="flex items-center gap-2 px-2 text-sm py-1.5 rounded-md bg-green-900 hover:bg-green-800 border border-lime-400 text-white">
                         @svg('fluentui-arrow-download-20-o', 'w-4 h-4')
                         <span>Exportar a Excel</span></span>

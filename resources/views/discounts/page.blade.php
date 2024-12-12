@@ -8,7 +8,7 @@
             <h2 class="text-xl text-center pb-2 uppercase font-semibold tracking-tight">
                 Descuentos de empresas
             </h2>
-            <nav class="flex items-center gap-2">
+            <nav class="flex items-end gap-2">
                 <button type="button" data-modal-target="dialog" data-modal-toggle="dialog"
                     class="py-1.5 px-3 flex justify-center gap-2 items-center bg-green-800 border border-lime-400 rounded-md text-sm text-white">
                     @svg('fluentui-add-20', 'w-4 h-4')
@@ -32,6 +32,23 @@
 
                 <input type="search" value="{{ request()->get('q') }}" placeholder="Filtra descuentos" name="q"
                     class="dinamic-input-to-url">
+
+                @if ($authUser->role != 'business')
+                    <label class="label">
+                        <span>
+                            Empresa
+                        </span>
+                        <select name="businessId" class="dinamic-select-to-url">
+                            <option value=""> -- Todas las empresas -- </option>
+                            @foreach ($businesses as $business)
+                                <option value="{{ $business->id }}"
+                                    {{ request()->get('businessId') == $business->id ? 'selected' : '' }}>
+                                    {{ $business->businessName }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </label>
+                @endif
 
                 <button class="primary refresh-page">
                     @svg('fluentui-search-20', 'w-4 h-4')
