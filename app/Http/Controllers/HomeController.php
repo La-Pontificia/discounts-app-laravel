@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Discount;
+use App\Models\History;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,6 +21,12 @@ class HomeController extends Controller
         } else {
             $discounts = Discount::all();
         }
-        return view('page', compact('discounts'));
+
+        $now = date('Y-m-d');
+        $nowHistories = History::where('userId', Auth::id())
+            ->where('created_at', '>=', $now . ' 00:00:00')
+            ->orderBy('created_at', 'desc')->get();
+
+        return view('page', compact('discounts', 'nowHistories'));
     }
 }
