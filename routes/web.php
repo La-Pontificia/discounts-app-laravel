@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BusinessController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
@@ -22,6 +23,13 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     Route::post('/users', [UserController::class, 'store']);
     Route::post('/users/{id}', [UserController::class, 'update']);
     Route::post('/users/{id}/toggle-status', [UserController::class, 'toggleStatus']);
+    Route::post('/users/{id}/reset-password', [UserController::class, 'resetPassword']);
+
+    Route::get('/businesses', [BusinessController::class, 'index']);
+    Route::post('/businesses', [BusinessController::class, 'store']);
+    Route::post('/businesses/{id}', [BusinessController::class, 'update']);
+    Route::post('/businesses/{id}/toggle-status', [BusinessController::class, 'toggleStatus']);
+    Route::post('/businesses/{id}/reset-password', [BusinessController::class, 'resetPassword']);
 
     Route::get('/clients', [ClientController::class, 'index']);
     Route::get('/clients/one', [ClientController::class, 'one']);
@@ -35,7 +43,6 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     Route::post('/discounts', [DiscountController::class, 'store']);
     Route::post('/discounts/{id}', [DiscountController::class, 'update']);
     Route::post('/discounts/{id}/delete', [DiscountController::class, 'destroy']);
-
 
     Route::post('/histories', [HistoryController::class, 'store']);
     Route::get('/histories/dates-grouped', [HistoryController::class, 'datesGrouped']);
