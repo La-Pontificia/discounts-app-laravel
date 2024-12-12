@@ -13,12 +13,18 @@ class History extends Model
   protected $fillable = [
     'clientId',
     'userId',
-    'discountId',
+    'creatorId',
+    'amount',
   ];
 
   public function client()
   {
     return $this->hasOne(Client::class, 'id', 'clientId');
+  }
+
+  public function creator()
+  {
+    return $this->hasOne(User::class, 'id', 'creatorId');
   }
 
   public function user()

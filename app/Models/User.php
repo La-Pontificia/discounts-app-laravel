@@ -77,6 +77,9 @@ class User extends Authenticatable
 
   public function displayName()
   {
+    if ($this->role === 'business') {
+      return $this->businessName;
+    }
     return $this->firstNames . ' ' . $this->lastNames;
   }
 }
