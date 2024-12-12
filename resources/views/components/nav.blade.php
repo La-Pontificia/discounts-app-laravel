@@ -1,30 +1,37 @@
-<nav class="flex items-center gap-2 border-b p-2 bg-white shadow-md">
-    <div class="flex-grow px-3">
+<nav class="flex items-center gap-2 border-b p-2 bg-white">
+    <div class="flex-grow px-3 flex items-center gap-3">
+        <button>
+            @svg('fluentui-line-horizontal-3-20', 'w-6 h-6')
+        </button>
         <a class="w-fit" href="#">
-            <img src="/elp.webp" style="width: 100px; height: auto;" alt="">
+            <img src="/lp.webp" style="width: 120px; height: auto;" alt="">
         </a>
     </div>
-    <nav class="flex px-5 gap-4 items-center">
-        <div class="pr-2 text-sm border border-neutral-500/20 p-2 py-1 rounded-xl bg-stone-500/10">
-            <h2 class="font-semibold">
-                {{ $authUser->displayName() }}
-            </h2>
-            <span
-                class="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
-                @svg('fluentui-person-20', 'w-4 h-4')
-                {{ $authUser->roleDisplayName() }}
-            </span>
-        </div>
-        <div>
-            <a href="{{ route('logout') }}"
-                onclick="event.preventDefault();document.getElementById('logout-form').submit();"
-                class="flex-none flex gap-1 items-center font-medium hover:underline">
-                @svg('fluentui-sign-out-24-o', 'w-6 h-6')
-                Salir
-            </a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                @csrf
-            </form>
+    <nav class="flex gap-4 items-center">
+        <button id="dropdownInformationButton" data-dropdown-toggle="dropdownInformation"
+            class="border bg-white-700 hover:bg-white-800 rounded-md text-sm px-5 py-2.5 text-center inline-flex items-center"
+            type="button"> {{ $authUser->displayName() }} <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 4 4 4-4" />
+            </svg>
+        </button>
+        <div id="dropdownInformation"
+            class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+            <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                <div>{{ $authUser->displayName() }}</div>
+                <div class="font-medium truncate">{{ $authUser->roleDisplayName() }}</div>
+            </div>
+            <div class="py-2">
+                <a href="{{ route('logout') }}"
+                    onclick="event.preventDefault();document.getElementById('logout-form').submit();"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                    Cerrar sesión
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+            </div>
         </div>
     </nav>
 </nav>
