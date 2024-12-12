@@ -5,8 +5,10 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ReportController;
 use App\Http\Middleware\AuthMiddleware;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,4 +35,9 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     Route::post('/discounts', [DiscountController::class, 'store']);
     Route::post('/discounts/{id}', [DiscountController::class, 'update']);
     Route::post('/discounts/{id}/delete', [DiscountController::class, 'destroy']);
+
+
+    Route::post('/histories', [HistoryController::class, 'store']);
+
+    Route::get('/reports', [ReportController::class, 'index']);
 });
