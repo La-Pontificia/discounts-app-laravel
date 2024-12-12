@@ -101,10 +101,10 @@
                                         {{ $item->client->displayName() }}
                                     </td>
                                     <td class="text-nowrap">
-                                        {{ $item->discount->user->businessName }}
+                                        {{ $item->user->businessName }}
                                     </td>
                                     <td>
-                                        {{ $item->discount->amount . '%' }}
+                                        {{ $item->amount . '%' }}
                                     </td>
                                     <td class="text-nowrap">
                                         {{ $item->created_at->format('H:i A') }}

@@ -1,16 +1,12 @@
 @php
     $roles = [
         'admin' => 'Administrador',
-        'business' => 'Negocio',
         'admin-global' => 'Administrador global',
     ];
 
     $firstNames = isset($user) ? $user->firstNames : '';
-    $phone = isset($user) ? $user->phone : '';
-    $address = isset($user) ? $user->address : '';
     $lastNames = isset($user) ? $user->lastNames : '';
     $roleExternal = isset($user) ? $user->role : '';
-    $businessName = isset($user) ? $user->businessName : '';
     $email = isset($user) ? $user->email : '';
 
 @endphp
@@ -27,16 +23,6 @@
 </div>
 
 <label class="label">
-    <span>Telefono de contacto</span>
-    <input value="{{ $phone }}" type="text" name="phone">
-</label>
-<label class="label">
-    <span>Dirección</span>
-    <textarea value="{{ $address }}" name="address"></textarea>
-</label>
-
-
-<label class="label">
     <span>Rol</span>
     <select name="role" required>
         <option value="">--Selecciona un rol--</option>
@@ -45,11 +31,6 @@
             </option>
         @endforeach
     </select>
-</label>
-
-<label class="label">
-    <span>Nombre de negocio</span>
-    <input value="{{ $businessName }}" name="businessName">
 </label>
 
 <label class="label">

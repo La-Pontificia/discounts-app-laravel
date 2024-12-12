@@ -39,7 +39,7 @@
                 </button>
             </nav>
             <div class="p-2">
-                <div class="overflow-auto border bg-white p-3">
+                <div class="overflow-auto text-sm border bg-white p-3">
                     <table class="w-full text-left">
                         <thead class="border-b">
                             <tr class="[&>th]:font-medium [&>th]:text-nowrap [&>th]:p-2 font-medium">
@@ -63,7 +63,7 @@
                                             <p>
                                                 {{ $discount->created_at->format('d/m/Y') }}
                                             </p>
-                                            <p class="text-sm">
+                                            <p class="text-xs opacity-60">
                                                 {{ $discount->created_at->diffForHumans() }}
                                             </p>
                                         </div>
@@ -75,7 +75,7 @@
                                                 data-action="/discounts/{{ $discount->id }}/delete"
                                                 data-title='Eliminar el descuento'
                                                 data-description='¿Estás seguro de eliminar el descuento de {{ $discount->amount }}% de {{ $discount->user->businessName }}?'>
-                                                @svg('fluentui-delete-20-o', 'w-4 h-4')
+                                                @svg('fluentui-delete-20', 'w-4 h-4')
                                                 Eliminar
                                             </button>
                                             <button data-modal-target="dialog-{{ $discount->id }}"
