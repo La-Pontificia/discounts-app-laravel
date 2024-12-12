@@ -125,32 +125,31 @@ document.addEventListener("DOMContentLoaded", async function () {
         const seriesData = [];
         const categories = [];
 
-        const groupedData = {};
+        const dates = res.data.map((item) => new Date(item.date));
+        const minDate = new Date(Math.min(...dates));
+        const maxDate = new Date(Math.max(...dates));
 
+        for (
+            let d = new Date(minDate);
+            d <= maxDate;
+            d.setDate(d.getDate() + 1)
+        ) {
+            categories.push(d.toISOString().split("T")[0]);
+        }
+
+        const groupedData = {};
         res.data.forEach((item) => {
             const businessName = item.businessName;
-            const date = item.date;
-
-            // Asegurarnos de que las fechas sean únicas en categories
-            if (!categories.includes(date)) {
-                categories.push(date);
-            }
-
-            // Inicializamos la estructura de datos por negocio si no existe
             if (!groupedData[businessName]) {
                 groupedData[businessName] = Array(categories.length).fill(0);
             }
 
-            // Obtiene el índice de la fecha
-            const index = categories.indexOf(date);
-
-            // Asegurarse de que el índice sea válido antes de incrementar
+            const index = categories.indexOf(item.date);
             if (index !== -1) {
                 groupedData[businessName][index] += item.count;
             }
         });
 
-        // Creamos el array de series de datos
         Object.entries(groupedData).forEach(([businessName, data]) => {
             seriesData.push({
                 name: businessName,
