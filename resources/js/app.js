@@ -3,6 +3,7 @@
 import Swal from "sweetalert2";
 import "./utils";
 import "./discount";
+import "./reports";
 
 window.alert = (title = "Confirmar", text = "Confirmar", icon = "warning") =>
     Swal.fire({

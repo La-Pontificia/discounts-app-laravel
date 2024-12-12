@@ -1,3 +1,5 @@
+import axios from "axios";
+
 document.addEventListener("DOMContentLoaded", function () {
     const $ = document.querySelector.bind(document);
 
@@ -6,15 +8,23 @@ document.addEventListener("DOMContentLoaded", function () {
         const form = new FormData(e.target);
         window.disabledFormChildren($("#query-document"));
         try {
-            const res = await fetch(`/clients/one?slug=${form.get("slug")}`);
-            const data = await res.json();
+            const { data } = await axios(
+                `/clients/one?slug=${form.get("slug")}`
+            );
             $("#form-result")?.setAttribute("data-ready", "");
-            $("#documentId").value = data.documentId;
-            $("#firstNames").value = data.firstNames;
-            $("#lastNames").value = data.lastNames;
-            $("#businessUnit").value = data.businessUnit;
+            $("#documentId").innerHTML = data.documentId;
+            $("#firstNames").innerHTML = data.firstNames;
+            $("#lastNames").innerHTML = data.lastNames;
+            $("#businessUnit").innerHTML = data.businessUnit;
+            $("#clientId").value = data.id;
+            $("#type").innerHTML = data.type;
         } catch (error) {
-            alert("No se encontró el cliente");
+            alert(
+                "Hey!",
+                "No se encontró el documento ingresado o no se encuentra activo. Por favor, verifique e intente nuevamente."
+            );
+            const $inputSlug = $("#query-document")?.querySelector("input");
+            $inputSlug.value = "";
         } finally {
             window.enabledFormChildren($("#query-document"));
         }
