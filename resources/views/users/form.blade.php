@@ -28,7 +28,7 @@
 
 <label class="label">
     <span>Telefono de contacto</span>
-    <input value="{{ $phone }}" type="text" name="phone" required>
+    <input value="{{ $phone }}" type="text" name="phone">
 </label>
 <label class="label">
     <span>Dirección</span>

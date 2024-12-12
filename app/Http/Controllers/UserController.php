@@ -31,7 +31,7 @@ class UserController extends Controller
             'phone' => 'nullable|string',
             'address' => 'nullable|string',
             'role' => 'required|string',
-            'businessName' => 'required|string',
+            'businessName' => 'nullable|string',
             'email' => 'required|email',
             'password' => 'required|string|min:6',
         ]);
