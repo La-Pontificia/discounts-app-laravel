@@ -2,33 +2,31 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class BusinessController extends Controller
 {
     public function index(Request $req)
     {
-        $match = User::orderBy('created_at', 'desc')->where('role', '!=', 'business');
+        $match = User::orderBy('created_at', 'desc')->where('role', 'business');
 
         $q = $req->query('q');
 
-        if ($q) $match->where('firstNames', 'like', "%$q%")
-            ->orWhere('lastNames', 'like', "%$q%")
+        if ($q) $match->where('businessName', 'like', "%$q%")
             ->orWhere('email', 'like', "%$q%");
 
-        $users = $match->paginate();
+        $businesses = $match->paginate();
 
-        return view('users.page', compact('users'));
+        return view('businesses.page', compact('businesses'));
     }
 
     public function store(Request $req)
     {
         $req->validate([
-            'firstNames' => 'required|string',
-            'lastNames' => 'nullable|string',
-            'role' => 'required|string',
+            'phone' => 'required|string',
+            'address' => 'required|string',
+            'businessName' => 'required|string',
             'email' => 'required|email',
             'password' => 'required|string|min:6',
         ]);
@@ -36,18 +34,19 @@ class UserController extends Controller
         $alreadyEmail = User::where('email', $req->email)->first();
 
         if ($alreadyEmail) {
-            return response()->json('Ya existe un usuario con el correo electrónico proporcionado', 400);
+            return response()->json('El correo electrónico proporcionado ya está en uso.', 400);
         }
 
         $user = new User();
-        $user->firstNames = $req->firstNames;
-        $user->lastNames = $req->lastNames;
-        $user->role = $req->role;
+        $user->phone = $req->phone;
+        $user->address = $req->address;
+        $user->role = 'business';
+        $user->businessName = $req->businessName;
         $user->email = $req->email;
         $user->password = bcrypt($req->password);
         $user->save();
 
-        return response()->json('Usuario creado correctamente');
+        return response()->json('Empresa creada correctamente');
     }
 
     public function update(Request $req, $id)
@@ -56,25 +55,25 @@ class UserController extends Controller
 
 
         $req->validate([
-            'firstNames' => 'required|string',
-            'lastNames' => 'nullable|string',
-            'role' => 'required|string',
+            'phone' => 'required|string',
+            'address' => 'required|string',
+            'businessName' => 'required|string',
             'email' => 'required|email',
         ]);
 
         $alreadyEmail = User::where('email', $req->email)->where('id', '!=', $user->id)->first();
 
         if ($alreadyEmail) {
-            return response()->json('Ya existe un usuario con el correo electrónico proporcionado', 400);
+            return response()->json('El correo electrónico proporcionado ya está en uso.', 400);
         }
 
-        $user->firstNames = $req->firstNames;
-        $user->lastNames = $req->lastNames;
-        $user->role = $req->role;
+        $user->phone = $req->phone;
+        $user->address = $req->address;
+        $user->businessName = $req->businessName;
         $user->email = $req->email;
         $user->save();
 
-        return response()->json('Usuario actualizado correctamente');
+        return response()->json('Empresa actualizado correctamente');
     }
     public function toggleStatus($id)
     {
@@ -82,7 +81,7 @@ class UserController extends Controller
         $user->status = !$user->status;
         $user->save();
 
-        $responseText = $user->status ? 'Usuario activado correctamente' : 'Usuario desactivado correctamente';
+        $responseText = $user->status ? 'Empresa activado correctamente' : 'Empresa desactivado correctamente';
         return response()->json($responseText);
     }
 

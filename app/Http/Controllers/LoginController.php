@@ -29,7 +29,12 @@ class LoginController extends Controller
             $req->session()->regenerate();
             $user->lastSession = now();
             $user->save();
-            return redirect()->intended('/');
+
+            if ($user->role == 'business') {
+                return redirect()->intended('/');
+            } else {
+                return redirect()->intended('/dashboard');
+            }
         }
 
         return back()->with(['error' => 'Credenciales incorrectas'])->onlyInput('email');

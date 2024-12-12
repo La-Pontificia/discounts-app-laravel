@@ -54,7 +54,12 @@ class LoginController extends Controller
             return back()->with('error', 'Tu cuenta no está activa. Comunícate con el administrador.');
         }
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('/');
+
+            if ($user->role == 'business') {
+                return redirect()->intended('/');
+            } else {
+                return redirect()->intended('/dashboard');
+            }
         }
 
         return redirect('/login')->with('error', 'Credeniales incorrectas, Intente de nuevo.');

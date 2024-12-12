@@ -22,7 +22,7 @@ class DiscountController extends Controller
             $users = User::where('role', 'business')->get();
         }
 
-        $match = Discount::orderBy('created_at', 'desc')->where('userId', Auth::id());
+        $match = Discount::orderBy('created_at', 'desc');
 
         $q = $req->query('q');
 
@@ -32,6 +32,10 @@ class DiscountController extends Controller
                 ->orWhere('firstNames', 'like', "%$q%")
                 ->orWhere('lastNames', 'like', "%$q%");
         });
+
+        if ($authUser->role === 'business') {
+            $match->where('userId', $authUser->id);
+        }
 
         $discounts = $match->paginate();
 

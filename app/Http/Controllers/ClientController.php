@@ -19,7 +19,7 @@ class ClientController extends Controller
 
         if ($q) $match->where('firstNames', 'like', "%$q%")
             ->orWhere('lastNames', 'like', "%$q%")
-            ->orWhere('dni', 'like', "%$q%");
+            ->orWhere('documentId', 'like', "%$q%");
 
         if ($type) $match->where('type', $type);
 
