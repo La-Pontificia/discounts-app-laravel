@@ -17,7 +17,7 @@
 </label>
 <label class="label">
     <span>Dirección</span>
-    <textarea value="{{ $address }}" name="address" required></textarea>
+    <textarea name="address" required>{{ $address }}</textarea>
 </label>
 
 <label class="label">
