@@ -17,9 +17,9 @@ class DiscountController extends Controller
         $users = [];
 
         if ($authUser->role == 'business') {
-            $users = User::where('id', $authUser->id)->get();
+            $users = User::where('id', $authUser->id)->get()->where('role', 'business');
         } else {
-            $users = User::all();
+            $users = User::where('role', 'business')->get();
         }
 
         $match = Discount::orderBy('created_at', 'desc');
