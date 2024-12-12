@@ -18,6 +18,7 @@ class Client extends Model
     'type',
     'status',
     'userId',
+    'updaterId',
   ];
 
   protected $perPage = 20;
@@ -27,6 +28,11 @@ class Client extends Model
     return $this->hasOne(User::class, 'id', 'userId');
   }
 
+  public function updater()
+  {
+    return $this->hasOne(User::class, 'id', 'updaterId');
+  }
+
   public function histories()
   {
     return $this->HasMany(History::class, 'id', 'clientId');
@@ -34,6 +40,18 @@ class Client extends Model
 
   public function displayName()
   {
-    return $this->firstNames . ' ' . $this->lastNames;
+    return $this->lastNames . ', ' . $this->firstNames;
+  }
+
+  public function displayType()
+  {
+    $clientTypes = [
+      'alumno' => 'Alumno',
+      'docente' => 'Docente',
+      'directivo' => 'Directivo',
+      'ppff' => 'Padre de familia',
+
+    ];
+    return $clientTypes[$this->type];
   }
 }
