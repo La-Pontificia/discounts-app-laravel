@@ -78,6 +78,9 @@
                                     Cliente
                                 </td>
                                 <td>
+                                    Empresa
+                                </td>
+                                <td>
                                     Descuento
                                 </td>
                                 <td>
@@ -96,6 +99,9 @@
                                     </td>
                                     <td class="text-nowrap">
                                         {{ $item->client->displayName() }}
+                                    </td>
+                                    <td class="text-nowrap">
+                                        {{ $item->discount->user->businessName }}
                                     </td>
                                     <td>
                                         {{ $item->discount->amount . '%' }}
