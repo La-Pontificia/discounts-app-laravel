@@ -16,8 +16,8 @@ class HomeController extends Controller
         $discounts = [];
 
 
-        if ($authUser->role == 'business') {
-            $discounts = $authUser->discounts;
+        if ($authUser->role === 'business') {
+            $discounts = Discount::where('userId', Auth::id())->get();
         } else {
             $discounts = Discount::all();
         }
