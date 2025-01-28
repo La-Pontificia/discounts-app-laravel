@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes();
 Route::post('login', [LoginController::class, 'login']);
 Route::middleware([AuthMiddleware::class])->group(function () {
+
+    Route::post('/auth/change-password', [UserController::class, 'changePassword']);
+
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/dashboard', [DashboardController::class, 'index']);
 
@@ -51,8 +54,6 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     Route::get('/histories/per-business-time-series', [HistoryController::class, 'getBusinessHistoryTimeSeries']);
 
     Route::get('/reports', [ReportController::class, 'index']);
-
-
 
     Route::get('files/reports/{filename}', function ($filename) {
         $path = storage_path('app/files/reports/' . $filename);
