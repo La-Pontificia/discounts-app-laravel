@@ -5,9 +5,37 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
+    // auth controllers
+    public function changePassword(Request $req)
+    {
+        $req->validate([
+            'oldPassword' => 'required|string',
+            'newPassword' => 'required|string|min:6',
+            'confirmPassword' => 'required|string',
+        ]);
+
+        if ($req->newPassword !== $req->confirmPassword) {
+            return response()->json('Las contraseñas no coinciden', 400);
+        }
+
+        $user = User::find(Auth::id());
+
+        if (!password_verify($req->oldPassword, $user->password)) {
+            return response()->json('La contraseña actual no coincide', 400);
+        }
+
+        $user->password = bcrypt($req->newPassword);
+        $user->save();
+
+        return response()->json('Contraseña cambiada correctamente');
+    }
+
+    // user controllers
     public function index(Request $req)
     {
         $match = User::orderBy('created_at', 'desc')->where('role', '!=', 'business');
