@@ -23,6 +23,13 @@
                 <div class="font-medium truncate">{{ $authUser->roleDisplayName() }}</div>
             </div>
             <div class="py-2">
+
+                <button data-modal-target="dialog-change-password" data-modal-toggle="dialog-change-password"
+                    class="flex items-center gap-2 text-left text-nowrap px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                    Cambiar contraseña
+                </button>
+
+
                 <a href="{{ route('logout') }}"
                     onclick="event.preventDefault();document.getElementById('logout-form').submit();"
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
@@ -35,3 +42,32 @@
         </div>
     </nav>
 </nav>
+
+
+<div id="dialog-change-password" tabindex="-1" aria-hidden="true" class="dialog hidden">
+    <div class="content lg:max-w-lg max-w-full">
+        <header>
+            Actualizar contraseña: {{ $authUser->displayName() }}
+        </header>
+        <form action="/auth/change-password" method="POST" id="dialog-form-change-password"
+            class="dinamic-form body grid gap-4 pb-5">
+            <label class="label">
+                <span>Contraseña actual.</span>
+                <input type="password" name="oldPassword" required>
+            </label>
+            <label class="label">
+                <span>Nueva contraseña.</span>
+                <input type="password" name="newPassword" required>
+            </label>
+            <label class="label">
+                <span>Confirmar contraseña.</span>
+                <input type="password" name="confirmPassword" required>
+            </label>
+        </form>
+        <footer>
+            <button data-modal-hide="dialog-change-password" type="button">Cancelar</button>
+            <button form="dialog-form-change-password" type="submit">
+                Actualizar contraseña</button>
+        </footer>
+    </div>
+</div>
