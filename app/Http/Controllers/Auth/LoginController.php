@@ -47,7 +47,7 @@ class LoginController extends Controller
         $user = User::where('email', $credentials['email'])->first();
 
         if (!$user) {
-            return back()->with('error', 'Credeniales incorrectas, Intente de nuevo.');
+            return back()->with('error', 'Credenciales incorrectas, Intente de nuevo.');
         }
 
         if (!$user->status) {
@@ -62,6 +62,6 @@ class LoginController extends Controller
             }
         }
 
-        return redirect('/login')->with('error', 'Credeniales incorrectas, Intente de nuevo.');
+        return redirect('/login')->with('error', 'Credenciales incorrectas, Intente de nuevo.');
     }
 }

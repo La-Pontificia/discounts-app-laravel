@@ -1,5 +1,5 @@
 @php
-    $businessUnits = ['Escuela Superior la Pontificia', 'Instituto La Pontificia', 'Cybernet', 'Educación Continua'];
+    $businessUnits = ['La Pontifica-Cybernet'];
     $clientTypes = ['docente', 'alumno', 'directivo', 'ppff'];
 
     $firstNames = isset($client) ? $client->firstNames : '';
@@ -30,9 +30,9 @@
 </div>
 
 <label class="label">
-    <span>Unidad de negocio</span>
+    <span>Comunidad Educativa</span>
     <select name="businessUnit" required>
-        <option value="">--Selecciona una unidad--</option>
+        <option value="">--Seleccionar--</option>
         @foreach ($businessUnits as $bu)
             <option value="{{ $bu }}" @if ($bu == $businessUnit) selected @endif>{{ $bu }}
             </option>

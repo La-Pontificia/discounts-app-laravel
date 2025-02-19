@@ -3,9 +3,9 @@
 @section('content')
     <div class="w-full flex bg-white min-h-auto md:h-svh">
         <div class="h-full hidden md:block">
-            <img src="/_background.webp" class="h-full object-cover" alt="">
+            <img src="/night.webp" class="h-full object-cover" alt="">
         </div>
-        <div class="flex flex-col min-w-full md:min-w-[400px] h-full">
+        <div class="flex flex-col min-w-full md:min-w-[500px] h-full">
             <header class="text-center space-y-4 pt-10">
                 <img src="/lp.webp" style="width: 170px; height: auto;" class="mx-auto" alt="">
                 <p class="opacity-70 text-sm">

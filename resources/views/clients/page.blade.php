@@ -75,7 +75,7 @@
                                 <th>Nombres</th>
                                 <th>Apellidos</th>
                                 <th>Documento de Identidad</th>
-                                <th>Unidad de Negocio</th>
+                                <th>La Pontifica-Cybernet</th>
                                 <th>Tipo</th>
                                 <th>Estado</th>
                                 <th></th>

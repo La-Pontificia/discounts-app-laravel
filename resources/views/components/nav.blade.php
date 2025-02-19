@@ -3,8 +3,8 @@
         <button id="sidebar-toggle" class="pr-2">
             @svg('fluentui-line-horizontal-3-20', 'w-6 h-6')
         </button>
-        <a class="w-fit" href="#">
-            <img src="/lp.webp" style="width: 120px; height: auto;" alt="">
+        <a class="w-fit font-semibold tracking-tight" href="#">
+            LA PONTIFICIA-CYBERNET
         </a>
     </div>
     <nav class="flex gap-4 items-center">
