@@ -37,9 +37,6 @@
                         <p class="text-nowrap">
                             <b>Unidad de Negocio: </b> <span id="businessUnit">Caja Arequipa</span>
                         </p>
-                        <p>
-                            <b>Tipo: </b> <span id="type">Alumno</span>
-                        </p>
                     </div>
                     <div class="col-span-2 h-px bg-stone-500/20 w-full"></div>
                     <label class="label col-span-2">

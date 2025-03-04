@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const $exportButton = $("#export-button");
 
-    $exportButton.addEventListener("click", async () => {
+    $exportButton?.addEventListener("click", async () => {
         Swal.fire({
             title: "¿Estás seguro de exportar los datos?",
             text: "Verifica los filtros y los rangos de fechas antes de exportar.",

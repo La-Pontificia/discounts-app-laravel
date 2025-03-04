@@ -3,7 +3,7 @@
 @section('title', 'Empresas')
 
 @section('dashboard-content')
-    @if ($authUser->role === 'admin-global')
+    @if ($authUser->role !== 'business')
         <div class="flex flex-col flex-grow overflow-auto">
             <nav>
                 <h2 class="text-xl text-center pb-2 uppercase font-semibold tracking-tight">
