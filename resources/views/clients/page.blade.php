@@ -75,7 +75,7 @@
                                 <th>Nombres</th>
                                 <th>Apellidos</th>
                                 <th>Documento de Identidad</th>
-                                <th>La Pontifica-Cybernet</th>
+                                <th>Comunidad Educativa</th>
                                 <th>Tipo</th>
                                 <th>Estado</th>
                                 <th></th>
